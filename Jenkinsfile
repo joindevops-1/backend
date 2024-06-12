@@ -41,6 +41,21 @@ pipeline {
                 """
             }
         }
+        stage('SonarQube Code Analysis') {
+            environment {
+                scannerHome = tool 'sonar'
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('sonar') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=backend \
+                            -Dsonar.projectName=backend \
+                            -Dsonar.projectVersion=1.0"
+                    }
+                }
+            }
+       }
         stage('Upload Artifact'){
             steps{
                 script{
