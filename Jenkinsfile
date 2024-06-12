@@ -48,14 +48,19 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('sonar') {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=backend \
-                            -Dsonar.projectName=backend \
-                            -Dsonar.projectVersion=1.0"
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
        }
+       stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+        }
+
         stage('Upload Artifact'){
             steps{
                 script{
