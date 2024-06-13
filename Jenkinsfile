@@ -50,25 +50,25 @@ pipeline {
                 """
             }
         }
-    //     stage('SonarQube Code Analysis') {
-    //         environment {
-    //             scannerHome = tool 'sonar'
-    //         }
-    //         steps {
-    //             script {
-    //                 withSonarQubeEnv('sonar') {
-    //                     sh "${scannerHome}/bin/sonar-scanner"
-    //                 }
-    //             }
-    //         }
-    //    }
-    //    stage("Quality Gate") {
-    //         steps {
-    //           timeout(time: 1, unit: 'HOURS') {
-    //             waitForQualityGate abortPipeline: true
-    //           }
-    //         }
-    //     }
+        stage('SonarQube Code Analysis') {
+            environment {
+                scannerHome = tool 'sonar'
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('sonar') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+       }
+       stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+        }
 
         stage('Upload Artifact'){
             steps{
