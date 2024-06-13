@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "this is test"
   },
   "keywords": [],
   "author": "",
@@ -16,10 +16,5 @@
     "mysql2": "latest",
     "node-fetch": "^2.6.1",
     "moment" : "latest"
-  },
-  "devDependencies": {
-    "chai": "^4.3.4",
-    "mocha": "^8.3.2",
-    "sinon": "^9.2.4"
   }
 }

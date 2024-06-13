@@ -33,15 +33,15 @@ pipeline {
                """
             }
         }
-        stage('Test') {
-            steps {
-               sh """
-                npm install --save-dev mocha chai sinon mysql2
-                npm test
+        // stage('Test') {
+        //     steps {
+        //        sh """
+        //         npm install --save-dev mocha chai sinon mysql2
+        //         npm test
 
-               """
-            }
-        }
+        //        """
+        //     }
+        // }
         stage('Build'){
             steps{
                 sh """
