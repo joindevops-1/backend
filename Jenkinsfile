@@ -72,7 +72,7 @@ pipeline {
             }
         } */
 
-        stage('Upload Artifact'){
+        /* stage('Upload Artifact'){
             steps{
                 script{
                     nexusArtifactUploader(
@@ -92,7 +92,7 @@ pipeline {
                     )
                 }
             }
-        }
+        } */
         stage('Docker Build'){
             steps{
                 sh """
