@@ -10,6 +10,8 @@ pipeline {
     environment{
         def appVersion = '' //variable declaration
         nexusUrl = 'nexus.daws78s.online:8081'
+        region = "us-east-1"
+        account_id = "315069654700"
     }
     parameters{
         booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
@@ -50,7 +52,7 @@ pipeline {
                 """
             }
         }
-        stage('SonarQube Code Analysis') {
+        /* stage('SonarQube Code Analysis') {
             environment {
                 scannerHome = tool 'sonar'
             }
@@ -68,7 +70,7 @@ pipeline {
                 waitForQualityGate abortPipeline: true
               }
             }
-        }
+        } */
 
         stage('Upload Artifact'){
             steps{
@@ -91,7 +93,15 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Docker Build'){
+            steps{
+                sh """
+                    aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${account_id}.dkr.ecr.${region}.amazonaws.com
+                    docker build -t ${account_id}.dkr.ecr.${region}.amazonaws.com/backend:${appVersion} .
+                """
+            }
+        }
+        /* stage('Deploy') {
             when {
                 expression{
                     params.deploy
@@ -105,7 +115,7 @@ pipeline {
                         build job: "backend-deploy", wait: false, parameters: params
                     }
             }
-        }
+        } */
     }
     post { 
         always { 
