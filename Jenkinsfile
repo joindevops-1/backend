@@ -7,9 +7,9 @@ def configMap = [
     application: "nodejsEKS",
     component: "backend"
 ]
-if( env.BRANCH_NAME.equalsIgnoreCase('main')){
+//if( env.BRANCH_NAME.equalsIgnoreCase('main')){
     pipelineDecission.decidePipeline(configMap)
-}
-else{
+//}
+/* else{
     echo "This is PRODUCTION, deal with CR process"
-}
+} */
